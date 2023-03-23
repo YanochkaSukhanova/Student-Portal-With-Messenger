@@ -1,13 +1,9 @@
 <?php
-abstract class ACore_student{
+abstract class ACore_admin{
 	
 	protected $db;
 	
 	public function _construct (){
-	
-		if($_COOKIE['user'] == ''){
-			header("Location:/STUD_PORTAL/login.php");
-		}
 	
 		$this->$db = mysqli_connect(HOST, USER, PASSWORD);
 		if(!$this->db){
@@ -29,34 +25,39 @@ abstract class ACore_student{
 				<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 				<title>Студенческий портал</title>
 				<link rel="stylesheet" href="/STUD_PORTAL/styles/style.css">
+				<script src="https://cdn.ckeditor.com/ckeditor5/34.0.0/classic/ckeditor.js"></script>
 			</HEAD>
 
 			<BODY>
-			    	<h1>Студенческий портал</h1>';
+			    	<h1>Администрирование студенческого портала</h1>';
 	}
 
 	protected function get_category(){
-		$query = "SELECT id_category, name_category FROM category";
+
+		echo '<div id="menu"><ul>';
+		  
+		echo '<li><a href="?option=users">Пользователи</a></li>';          
+		/*echo '<li><a href="?option=groups">Группы</a></li>';
+		/*echo '<li><a href="?option=add_posts">Добавить новую лекцию</a></li>';
+		echo '<li><a href="?option=edit_category">Редактировать предметы</a></li>';*/
+		echo '	<li><a href="/STUD_PORTAL/login.php">Выйти</a></li>
+			</ul></div>';
+	}
+	
+	protected function get_groups(){
+		$query = "SELECT id_group, name_group FROM groups";
 		$link = mysqli_connect(HOST, USER, PASSWORD, DB);
 		$result = mysqli_query($link, $query);
-		
-		if(!$result){
+		if(!$result){				
 			exit(mysqli_error($link));
 		}
 		
 		$row = array();
-		echo '<div id="menu"><ul>   
-			   <li><a href="?option=news_stud">Новости</a></li>
-			   <li><a href="?option=notes_stud">Заметки</a></li>
-			   
-		           <li><a href="?option=predmets">Предметы</a></li>
-		           <li><a href="?option=messenger_stud">Мессенджер</a></li>
-		           <li><a href="?option=profil_stud">Профиль</a></li>';
-			
-
-		echo '	<li><a href="/STUD_PORTAL/login.php">Выйти</a></li>
-			</ul></div>
-			<br>';
+		for ($i = 0; $i < mysqli_num_rows($result); $i++){
+			$row[] = mysqli_fetch_array($result, MYSQLI_ASSOC);
+		}
+		
+		return $row;
 	}	
 	
 	
@@ -73,7 +74,11 @@ abstract class ACore_student{
 	protected function get_error(){
 		echo '<div> Нет доступа к данной странице</div><br>
 			<a style="text-align: center" href="/STUD_PORTAL/login.php"><button>Выйти</button></a>
-			<img class="illustration_big" src="file/undraw_Page_not_found_re_e9o6.png">';
+			<img class="illustration_big" src="file/undraw_Page_not_found_re_e9o6.png">
+			  
+			</BODY>
+
+			</HTML>';
 	}
 	
 	protected function get_null(){
@@ -81,14 +86,15 @@ abstract class ACore_student{
 			<div> Попробуйте зайти на портал через какое-то время</div><br>
 			<a style="text-align: center" href="/STUD_PORTAL/login.php"><button>Выйти</button></a><br>
 			<img class="illustration_big" src="file/undraw_Time_management_re_tk5w.png">';
-	}		
+	}	
 	
 	public function get_body() {
-
-		if($_SESSION['user']['rights'] === 'student'){
-			if($_POST){
+	
+		if($_SESSION['user']['rights'] === 'admin'){
+			if($_POST || $_GET['del_text']){
 				$this->obr();
 			}
+			
 			$this->get_header();
 			$this->get_category();
 			$this->get_content();
@@ -104,9 +110,25 @@ abstract class ACore_student{
 			$this->get_error();
 			$this->get_footer();
 		}
-
 	}
 	
 	abstract function get_content();
+	
+	
+	protected function get_text_users($id){
+		$query = "SELECT *
+		 	  FROM users
+		 	  WHERE id='$id'";
+		$link = mysqli_connect(HOST, USER, PASSWORD, DB);
+		$result = mysqli_query($link, $query);
+		if(!$result){				
+			exit(mysqli_error($link));
+		}
+		
+		$row = array();
+		$row = mysqli_fetch_array($result, MYSQLI_ASSOC);
+		
+		return $row;
+	}
 }
 ?>
