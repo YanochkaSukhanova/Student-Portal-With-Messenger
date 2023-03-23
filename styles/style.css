@@ -1,0 +1,148 @@
+﻿h1{
+	color: #cc0605;
+	text-align: center;
+    font-family: Geometria; 
+    src: url(font/Geometria.ttf); 
+}
+
+h2{
+	color: #cc0605;
+    font-family: Geometria; 
+    src: url(font/Geometria.ttf); 
+}
+
+h3{
+ width: 24 px; 
+ 	color: #cc0605;
+     font-family: Geometria; 
+    src: url(font/Geometria.ttf); 
+    
+ } 
+ 
+ p{
+ width: 20 px; 
+     font-family: Geometria; 
+    src: url(font/Geometria.ttf); 
+    
+ } 
+ 
+#main {
+	width: 1200px;
+	margin-left: 300px;
+	margin-bottom: 60px;
+	margin-top: 60px;
+	text-aline: centre;
+}
+
+#main_a {
+	width: 1200px;
+	margin-left: 300px;
+	margin-bottom: 60px;
+	text-aline: centre;
+}
+
+#menu {
+    background: #cc0605;
+    position: relative;
+    overflow: hidden;
+    height: 60px;
+}
+#menu ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    position: relative;
+    left: 50%;
+    float: left;
+    font-family: Geometria; 
+    src: url(font/Geometria.ttf); 
+    font-size: 24px;
+    height: 60px
+}
+#menu ul li {
+    position: relative;
+    left: -50%;
+    float: left;
+    height: 40px
+}
+#menu ul li a {
+    color: #fff;
+    display: block;
+    text-decoration: none;
+    padding: 0 15px;
+    line-height: 60px;
+}
+#menu ul li a:hover {
+    	background: #cdb891;
+	color: #2a1d09;
+}
+
+div {
+	text-align: center;
+    font-family: Geometria; 
+    src: url(font/Geometria.ttf); 
+}
+
+
+img.displayed{
+	display: block;
+	margin-left: auto;
+    margin-right: auto;
+	margin-top: 100px;
+}
+
+img.illustration{
+	display: block;
+	margin-left: auto;
+    margin-right: auto;
+    height: 200px;
+}
+
+img.illustration_big{
+	display: block;
+	margin-left: auto;
+    margin-right: auto;
+    height: 350px;
+}
+
+
+table.table_center {
+	border: 1px solid #000;
+	margin: auto;	
+    font-family: Geometria; 
+    src: url(font/Geometria.ttf); 
+}
+
+button{
+	position: relative;
+	left: 50%;
+	transform: translate(-50%, 0);
+	font-family: Geometria; 
+    	src: url(font/Geometria.ttf); 
+	font-size: 16px;
+	margin: auto;	
+}
+
+.input_style{
+	display:block;
+	margin: auto;
+	font-family: Geometria; 
+    src: url(font/Geometria.ttf); 
+}
+
+#footer {
+    position: fixed;
+    left: 0; bottom: 0;
+    padding: 10px;
+    background: #cc0605;
+    color: #fff;
+    width: 100%;
+}
+
+/*#redBorder{
+  background-color: #ffffff;
+  border: 10px solid #cc0605;
+  border-radius: 25px;
+  width:1200px;
+  height:200px;
+}*/
