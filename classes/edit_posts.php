@@ -65,7 +65,7 @@
 			
 				$text = $this->get_text_posts($id_text);
 				
-				echo "<div id='main'>";
+				echo "<div id='main_a'>";
 				
 				echo "<h2>Редактор лекций</h2>";
 				echo '<img class="illustration" src="file/undraw_Book_lover_re_rwjy.png">';

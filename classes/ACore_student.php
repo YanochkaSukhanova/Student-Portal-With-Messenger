@@ -86,7 +86,7 @@ abstract class ACore_student{
 	public function get_body() {
 
 		if($_SESSION['user']['rights'] === 'student'){
-			if($_POST){
+			if($_POST || $_GET['del_text']){
 				$this->obr();
 			}
 			$this->get_header();

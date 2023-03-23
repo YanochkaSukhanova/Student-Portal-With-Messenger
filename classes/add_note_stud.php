@@ -39,7 +39,7 @@
 		}
 		
 		public function get_content(){
-			echo "<div id='main'>";
+			echo "<div id='main_a'>";
 			
 			echo "<h2>Добавить новую заметку</h2>";
 			echo '<img class="illustration" src="file/undraw_Certificate_re_yadi.png"><br>';

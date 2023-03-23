@@ -37,7 +37,7 @@
 					printf("<h2>%s</h2>  
 				
 					<br><div style=' background-color:#fff; border: 2px solid #cc0605; border-radius: 25px;box-sizing: border-box; padding: 20px;'>
-					<p><div style='text-align:left'>%s</div></p>
+					<p><div style='text-align:left; white-space: pre-wrap'>%s</div></p>
 					
 					</div>", $row['name'], $row['text']);
 				}
