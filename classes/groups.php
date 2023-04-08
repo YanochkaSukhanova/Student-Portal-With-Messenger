@@ -2,14 +2,14 @@
 	class groups extends ACore_admin {
 		public function get_content(){
 			
-			$query = "SELECT * FROM `groups`";
+			$query = "SELECT * FROM `stud_groups`";
 			$link = mysqli_connect(HOST, USER, PASSWORD, DB);
 			$result = mysqli_query($link, $query);
 			if(!$result){
 				exit(mysqli_error($link));
 			}
 			
-			echo "<div id='main'>";
+			echo "<div id='main_a'>";
 			
 					
 			echo "<h2>Редактировать группы</h2>";
@@ -30,13 +30,18 @@
 			}
 			
 			$kol = mysqli_num_rows($result_a);
+			$r = mysqli_fetch_array($result_a, MYSQLI_ASSOC);
 			echo "<br><div style=' background-color:#fff3ed; border: 2px solid #cc0605; border-radius: 25px;box-sizing: border-box; padding: 20px;'>
-					<p style='font-size:20px; color:#585858'>
-					<b><a style='color:#585858, text-decoration: none'>Студенты, не зачисленные в группу</a><br></b>
-					<a>Количество студентов: $kol</a><br>
-					<a style='color:#585858' href='?option=add_user_to_group'>Посмотреть или изменить</a></div>";
+				<p style='font-size:20px; color:#585858'>
+				<b><a style='color:#585858, text-decoration: none'>Студенты, незачисленные в группу</a><br></b>
+				<a>Количество студентов: $kol</a><br>
+				<a style='color:#585858' href='?option=add_user_to_group'>Посмотреть или изменить</a></div>";
+			/*printf("<br><div style=' background-color:#fff3ed; border: 2px solid #cc0605; border-radius: 25px;box-sizing: border-box; padding: 20px;'>
+				<p style='font-size:20px; color:#585858'>
+				<b><a style='color:#585858, text-decoration: none'>Студенты, незачисленные в группу</a><br></b>
+				<a>Количество студентов: $kol</a><br>
+				<a style='color:#585858' href='?option=add_user_to_group&id_text=%s'>Посмотреть или изменить</a></div>", $r['student_group']);*/
 					
-			
 			$row = array();
 			for ($i = 0; $i < mysqli_num_rows($result); $i++){
 				$row = mysqli_fetch_array($result, MYSQLI_ASSOC); //---последовательно считываем ряды результата

@@ -19,7 +19,7 @@ public function get_content(){
 				
 				$link = mysqli_connect(HOST, USER, PASSWORD, DB);
 				$query = "SELECT * 
-					  FROM `groups`
+					  FROM `stud_groups`
 					  WHERE id_group='$id_text' ";
 				$result = mysqli_query($link, $query);
 				if(!$result){
@@ -28,7 +28,7 @@ public function get_content(){
 				
 				$query_a = "SELECT * 
 					  FROM users
-					  WHERE rights='student'";
+					  WHERE rights='student' and student_group=$id_text";
 				$result_a = mysqli_query($link, $query_a);
 				if(!$result_a){
 					exit(mysqli_error($link_a));
@@ -45,7 +45,7 @@ public function get_content(){
 				$count = $name_group['count_students'];
 				if($count == 0){
 					echo "<div>В группе нет студентов</div><br>";
-					printf( '<a style="margin-right: 1000px" href="?option=add_user_to_group&id_text=%s "><button>Добавить нового пользователя в группу</button></a><br>', $id);		
+					printf("<a style='margin-right: 1000px' href='?option=add_user_to_group&id_text=$id_text'><button>Добавить нового пользователя в группу</button></a>,<br>");
 					echo '<img class="illustration_big" src="file/undraw_People_search_re_5rre.png">';
 				}
 				else{
@@ -70,7 +70,9 @@ public function get_content(){
 		       <td><a style='color:#585858, text-decoration: none''>%s</a></td>
 		       <td><a style='color:#585858, text-decoration: none''>%s</a></td>
 		       <td><a style='color:#585858, text-decoration: none''>%s</a></td>
-		       <td><a style='color:#585858, text-decoration: none''>%s</a></td></tr>",   $row['id'], $row['login'], $row['last_name'], $row['first_name'],  $row['middle_name'], $row['email']);
+		       <td><a style='color:#585858, text-decoration: none''>%s</a></td>
+		       <td><b><a style='color:red' href='?option=delete_from_group&del_text=%s'
+		       '>Удалить из группы</a></b></td></tr>",   $row['id'], $row['login'], $row['last_name'], $row['first_name'],  $row['middle_name'], $row['email'], $row['id'],);
 		}
 		
 		echo "</table></div>";

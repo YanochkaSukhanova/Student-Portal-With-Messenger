@@ -19,7 +19,7 @@ class add_to_group extends ACore_admin {
 				
 				$link = mysqli_connect(HOST, USER, PASSWORD, DB);
 				$query = "SELECT * 
-					  FROM `groups`
+					  FROM `stud_groups`
 					  WHERE id_group='$id_text' ";
 				$result = mysqli_query($link, $query);
 				if(!$result){

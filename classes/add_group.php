@@ -5,12 +5,13 @@
 		protected function obr(){
 			
 			$title = $_POST['title'];
+			$count = 0;
 			
 			if(empty($title)){
 				exit("Не заполнены обязательные поля");
 			}
 			
-			$query = "INSERT INTO `groups` (name_group) VALUES ('$title')";
+			$query = "INSERT INTO `stud_groups`(`name_group`, `count_ students`)  VALUES ('$title', '$count')";
 			$link = mysqli_connect(HOST, USER, PASSWORD, DB);
 			$result = mysqli_query($link, $query);
 			if(!$result){
