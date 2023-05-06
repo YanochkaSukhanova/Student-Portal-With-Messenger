@@ -37,7 +37,7 @@ abstract class ACore_admin{
 		echo '<div id="menu"><ul>';
 		  
 		echo '<li><a href="?option=users">Пользователи</a></li>';          
-		/*echo '<li><a href="?option=groups">Группы</a></li>';
+		echo '<li><a href="?option=groups">Группы</a></li>';
 		/*echo '<li><a href="?option=add_posts">Добавить новую лекцию</a></li>';
 		echo '<li><a href="?option=edit_category">Редактировать предметы</a></li>';*/
 		echo '	<li><a href="/STUD_PORTAL/login.php">Выйти</a></li>

@@ -35,7 +35,9 @@ abstract class ACore_teacher{
 	protected function get_category(){
 
 		echo '<div id="menu"><ul>';
-		   
+		
+		echo '<li><a href="?option=news_teach">Новости</a></li>';  
+		echo '<li><a href="?option=notes_teach">Заметки</a></li>';  
 		echo '<li><a href="?option=edit_category">Предметы</a></li>';        
 		echo '<li><a href="?option=teachers_predmets">Лекции</a></li>';
 		echo '<li><a href="?option=messenger_teach">Мессенджер</a></li>';

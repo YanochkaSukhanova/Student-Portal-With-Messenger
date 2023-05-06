@@ -1,6 +1,6 @@
 <?php
 
-	class add_note_stud extends ACore_student {
+	class add_note_teach extends ACore_teacher {
 	
 		protected function obr(){
 			
@@ -35,7 +35,7 @@
 			}
 			else {
 				$_SESSION['res'] = "Изменения сохранены";
-				header("Location:?option=add_note_stud");
+				header("Location:?option=add_note_teach");
 				exit;
 			}
 		
@@ -64,15 +64,16 @@
 				<textarea id='editor3' name='text' style='width:1000px; height:100px; font-size: 16px;  font-family: Geometria; src: url(font/Geometria.ttf); '></textarea>
 				</p>
 				
+				
 			HEREDOC;
 			echo "<p><input type='submit' name='button' value='Сохранить'></p></form></div>";
+			
 			
 			/*
 				<p><b>Материалы (файл/архив/фото):</b><br>
 				<input type='file' name='file_src'>
 				</p>			
 			*/
-			
 		}
 	}
 ?>

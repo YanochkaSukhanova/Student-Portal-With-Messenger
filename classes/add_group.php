@@ -11,7 +11,7 @@
 				exit("Не заполнены обязательные поля");
 			}
 			
-			$query = "INSERT INTO `stud_groups`(`name_group`, `count_ students`)  VALUES ('$title', '$count')";
+			$query = "INSERT INTO `stud_groups`(`name_group`, `count_students`)  VALUES ('$title', '$count')";
 			$link = mysqli_connect(HOST, USER, PASSWORD, DB);
 			$result = mysqli_query($link, $query);
 			if(!$result){

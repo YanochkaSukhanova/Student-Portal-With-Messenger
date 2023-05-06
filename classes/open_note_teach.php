@@ -1,6 +1,6 @@
 <?php
 
-	class open_note_stud extends ACore_student{
+	class open_note_teach extends ACore_teacher{
 		
 		public function get_content(){
 		
@@ -24,12 +24,9 @@
 				$row = mysqli_fetch_array($result, MYSQLI_ASSOC);
 				
 				printf("<h2>%s</h2>  
-				
 					<br><div style=' background-color:#fff; border: 2px solid #cc0605; border-radius: 25px;box-sizing: border-box; padding: 20px;'>
 					<p><div style='text-align:left; white-space: pre-wrap'>%s</div></p>
-					
-					</div>", $row['name'], $row['text']);
-				}
+					</div>", $row['name'], $row['text']);		
 				
 				/*if ($row['file_src'] != ""){
 					printf("<h2>%s</h2>  

@@ -13,34 +13,25 @@ class add_user_to_group extends ACore_admin {
 		$result = $mysqli->query("CALL `addUserToGroup`(@user_id, @id_group)");
 		
 		$link = mysqli_connect(HOST, USER, PASSWORD, DB);
-		$query = "SELECT * 
-			  FROM `stud_groups` 
-			  WHERE id_group = '$id_group'";
+		$query = "SELECT count(*) 
+			  FROM `users` 
+			  WHERE student_group = '$id_group'";
 		$result = mysqli_query($link, $query);
 		if(!$result){
 			exit(mysqli_error($link));
 		}
 		
-		$link = mysqli_connect(HOST, USER, PASSWORD, DB);
-		$query = "SELECT * 
-			  FROM `stud_groups` 
-			  WHERE id_group = '$id_group'";
-		$result = mysqli_query($link, $query);
-		if(!$result){
-			exit(mysqli_error($link));
-		}
-		$r = mysqli_fetch_array($result, MYSQLI_ASSOC); 	
+		$r = mysqli_num_rows($result);
 		$count_students = (int)$r + 1;
 		
 		$mysqli = new mysqli(HOST, USER, PASSWORD, DB);
 		$mysqli->query("SET @id_group = '$id_group', @count_students = '$count_students'");
 		$result = $mysqli->query("CALL `editCountStudents`(@id_group, @count_students)");		
-		
 		if(!$result){
 			exit(mysqli_error($mysqli));
 		}
 		else {
-			$_SESSION['res'] = "Изменения сохранены";
+			$_SESSION['res'] = "Изменения сохранены, res = $count_students";
 			header("Location:?option=add_user_to_group");
 			exit;
 		}
@@ -62,16 +53,7 @@ class add_user_to_group extends ACore_admin {
 		}
 		$K = mysqli_num_rows($result_a);
 		
-		if ($K != 0){ 
-		
-			$link_b = mysqli_connect(HOST, USER, PASSWORD, DB);
-			$query_b = "SELECT * 
-				  FROM `stud_groups`";
-			$result_b = mysqli_query($link_b, $query_b);
-			if(!$result_b){
-				exit(mysqli_error($link_b));
-			}
-			$group_b = array();		
+		if ($K != 0){ 		
 				
 			echo '<img class="illustration" src="file/undraw_Selecting_team_re_ndkb.png">';
 		
@@ -85,6 +67,7 @@ class add_user_to_group extends ACore_admin {
 				<td><a style="color:#585858, text-decoration: none"><b>e-mail</b></a></td>
 				<td><a style="color:#585858, text-decoration: none"><b>Группа</b></a></td></tr>';
 			
+			$k = 1;
 			$row = array();
 			for ($i = 0; $i < mysqli_num_rows($result_a); $i++){
 				$row = mysqli_fetch_array($result_a, MYSQLI_ASSOC); //---последовательно считываем ряды результата
@@ -96,23 +79,36 @@ class add_user_to_group extends ACore_admin {
 					       <td><a style='color:#585858, text-decoration: none''>%s</a></td>
 					       <td><a style='color:#585858, text-decoration: none''>%s</a></td>
 					       <td><a style='color:#585858, text-decoration: none''>%s</a></td>",   $row['id'], $row['login'], $row['last_name'], $row['first_name'],  $row['middle_name'], $row['email']);
-					       
-			       echo "<td><a style='color:#585858, text-decoration: none''>";
+					     
+		    	        echo "<td><a style='color:#585858, text-decoration: none''>";
 				$id_stud = $row['id'];
+				
+				$link_b = mysqli_connect(HOST, USER, PASSWORD, DB);
+				$query_b = "SELECT * 
+					  FROM `stud_groups`";
+				$result_b = mysqli_query($link_b, $query_b);
+				if(!$result_b){
+					exit(mysqli_error($link_b));
+				}
+				$group_b = array();
+					
 				print <<<HEREDOC
 				<form enctype="multipart/form-data" action="" method="POST">
 					<select name='id_group'>
 				HEREDOC;
 				$student_group = array();
-				for ($i = 0; $i < mysqli_num_rows($result_b); $i++){
+				$j = 0;
+				for ($j = 0; $j < mysqli_num_rows($result_b); $j++){
 				   	$student_group = mysqli_fetch_array($result_b, MYSQLI_ASSOC);
 				   	echo "<option value='".$student_group['id_group']."'>".$student_group['name_group']."</option>";
 				}
 				echo "</select>";
+				
 				echo "<p><input type='hidden' name='user_id' value='$id_stud'></p>";
-				echo "<p><input type='submit' name='button' value='Добавить в группу'></p></form></div>";
+				echo "<p><input type='submit' name='button' value='Добавить в группу'></p></form>";
 			       
 			       echo "</a></td></tr>";
+				
 			}
 			
 			echo "</table></div>";	
