@@ -40,6 +40,7 @@ abstract class ACore_teacher{
 		echo '<li><a href="?option=notes_teach">Заметки</a></li>';  
 		echo '<li><a href="?option=edit_category">Предметы</a></li>';        
 		echo '<li><a href="?option=teachers_predmets">Лекции</a></li>';
+		echo '<li><a href="?option=tasks_teach">Задания</a></li>';
 		echo '<li><a href="?option=messenger_teach">Мессенджер</a></li>';
 		echo '<li><a href="?option=profil_teach">Профиль</a></li>';
 		echo '	<li><a href="/STUD_PORTAL/login.php">Выйти</a></li>
@@ -119,6 +120,22 @@ abstract class ACore_teacher{
 	protected function get_text_posts($id){
 		$query = "SELECT id, title, discription, text, cat, file_src
 		 	  FROM posts
+		 	  WHERE id='$id'";
+		$link = mysqli_connect(HOST, USER, PASSWORD, DB);
+		$result = mysqli_query($link, $query);
+		if(!$result){				
+			exit(mysqli_error($link));
+		}
+		
+		$row = array();
+		$row = mysqli_fetch_array($result, MYSQLI_ASSOC);
+		
+		return $row;
+	}
+	
+	protected function get_text_task($id){
+		$query = "SELECT id, title, discription, text, cat, file_src, date_start, date_end
+		 	  FROM tasks
 		 	  WHERE id='$id'";
 		$link = mysqli_connect(HOST, USER, PASSWORD, DB);
 		$result = mysqli_query($link, $query);

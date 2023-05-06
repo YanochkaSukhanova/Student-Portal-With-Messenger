@@ -1,5 +1,5 @@
 <?php
-	class edit_posts_file extends ACore_teacher {
+	class edit_task_file extends ACore_teacher {
 	
 		protected function obr(){
 			
@@ -18,13 +18,13 @@
 			$mysqli = new mysqli(HOST, USER, PASSWORD, DB);
 			$mysqli->query("SET @p0='$file_src';");
 			$mysqli->query("SET @p1='$id';");
-			$result = $mysqli->query("CALL `editPostFile`(@p0, @p1)");
+			$result = $mysqli->query("CALL `editTasksFile`(@p0, @p1)");
 			if(!$result){
 				exit(mysqli_error($mysqli));
 			}
 			else {
 				$_SESSION['res'] = "Изменения сохранены";
-				header("Location:?option=teachers_predmets");
+				header("Location:?option=tasks_teach");
 				exit;
 			}
 		
@@ -39,11 +39,11 @@
 				exit("Некорректные данные для страницы");
 			}
 			
-			$text = $this->get_text_posts($id_text);
+			$text = $this->get_text_task($id_text);
 			
 			echo "<div id='main'>";
 			
-			echo "<h2>Изменение материалов лекций</h2>";
+			echo "<h2>Изменение материалов задания</h2>";
 			echo "<div>Прикрепите файл или архив. После загрузки нажмите &#8220;Сохранить&#8220;</div>";
 			
 			if($_SESSION['res']){

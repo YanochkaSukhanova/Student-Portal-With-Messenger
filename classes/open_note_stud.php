@@ -29,7 +29,7 @@
 					<p><div style='text-align:left; white-space: pre-wrap'>%s</div></p>
 					
 					</div>", $row['name'], $row['text']);
-				}
+				
 				
 				/*if ($row['file_src'] != ""){
 					printf("<h2>%s</h2>  
