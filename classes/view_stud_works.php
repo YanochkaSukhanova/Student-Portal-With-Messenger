@@ -37,16 +37,43 @@
 				/*$query = "SELECT *
 				FROM users
 				WHERE rights = 'student'";*/
-			   	
-			   	
-			   	echo '<img class="illustration" src="file/undraw_File_bundle_re_6q1e.png">';
-			   	echo '<table class="table_center" border="1" cellspacing="0" cellpadding="12">
-			   	<tr style="background:#fff3ed">
-				<td><a style="color:#585858, text-decoration: none; "><b>Группа</b></a></td>
-				<td><a style="color:#585858, text-decoration: none; "><b>ФИО студента</b></a></td>
-				<td><a style="color:#585858, text-decoration: none; "><b>Дата сдачи</b></a></td>
-				<td><a style="color:#585858, text-decoration: none; "><b>Статус</b></a></td>
-				<td colspan=4><a style="color:#585858, text-decoration: none;"><b>Просмотр и оценка</b></a></td><tr>';
+				
+			$query_t = "SELECT *	
+			FROM tasks
+			WHERE id='$id_text'";
+			$result_t = mysqli_query($link, $query_t);
+			if(!$result_t){
+				exit(mysqli_error($link));
+			}
+			$row_t = mysqli_fetch_array($result_t, MYSQLI_ASSOC);
+			$r = $row_t['title'];
+			
+			echo "<h2>Работы студентов по теме &#8220;$r&#8220;</h2><br>";
+			
+			$query_w = "SELECT *	
+			FROM students_works
+			WHERE id_task='$id_text'";
+			$result_w = mysqli_query($link, $query_w);
+			if(!$result_w){
+				exit(mysqli_error($link));
+			}
+			$row_w = mysqli_fetch_array($result_w, MYSQLI_ASSOC);
+			
+			$count = mysqli_num_rows($result_w);
+			if($count == 0){	
+				echo '<div>Нет еще выполненных заданий</div>';
+				echo '<img class="illustration_big" src="file/undraw_learning_sketching_nd4f.png">';
+			}
+			else{
+			
+		   	echo '<img class="illustration" src="file/undraw_File_bundle_re_6q1e.png">';
+		   	echo '<table class="table_center" border="1" cellspacing="0" cellpadding="12">
+		   	<tr style="background:#fff3ed">
+			<td><a style="color:#585858, text-decoration: none; "><b>Группа</b></a></td>
+			<td><a style="color:#585858, text-decoration: none; "><b>ФИО студента</b></a></td>
+			<td><a style="color:#585858, text-decoration: none; "><b>Дата сдачи</b></a></td>
+			<td><a style="color:#585858, text-decoration: none; "><b>Статус</b></a></td>
+			<td colspan=4><a style="color:#585858, text-decoration: none;"><b>Просмотр и оценка</b></a></td><tr>';
 			   
 			$query_u = "SELECT * FROM `users` WHERE (rights='student') and (student_group != 0)";
 			$result_u = mysqli_query($link, $query_u);
@@ -58,16 +85,17 @@
 			   $row = array();
 			   for ($i = 0; $i < mysqli_num_rows($result_u); $i++){
 			   $row = mysqli_fetch_array($result_u, MYSQLI_ASSOC); //---последовательно считываем ряды результата
-				$id_stud = $row_u['id'];	
-				echo $id_stud;
-				$query_w = "SELECT *	
+			   	//$id_stud = $row['id'];	
+				//echo $id_stud;
+				//and id_user='$id_stud'
+				/*$query_w = "SELECT *	
 					FROM students_works
-					WHERE id_task='$id_text' and id_user='$'";
+					WHERE id_task='$id_text'";
 					$result_w = mysqli_query($link, $query_w);
 					if(!$result_w){
 						exit(mysqli_error($link));
 					}
-					$row_w = mysqli_fetch_array($result_w, MYSQLI_ASSOC);
+					$row_w = mysqli_fetch_array($result_w, MYSQLI_ASSOC);*/
 				
 			   	$row1 = array();
 			        for ($i = 0; $i < mysqli_num_rows($result_w); $i++){
@@ -86,58 +114,14 @@
 					       <td><a style='color:#585858, text-decoration: none''>%s %s %s</a></td>
 					       <td><a style='color:#585858, text-decoration: none''>%s</a></td>
 					       <td><a style='color:#585858, text-decoration: none''>%s</a></td>
-					       <td><a style='color:#585858' href='?option=view_stud_works&id_text=%s'>Посмотреть работы</a></td></p></tr>", $row_g['name_group'], $row_u['last_name'], $row_u['first_name'], $row_u['middle_name'], $row_w['date'], $row_w['status'], $row_w['id_work']);
+					       <td><a style='color:#585858' href='?option=view_work&id_text=%s'>Проверить</a></td></p></tr>", $row_g['name_group'], $row_u['last_name'], $row_u['first_name'], $row_u['middle_name'], $row_w['date'], $row_w['status'], $row_w['id']);
 			   
 			   	}
 			   }
-			   
+			   }
 			   }
 			   
 			   echo "</div>";
-			   
-			   
-			   
-			   	
-			   	
-			   	/*
-			   	
-			   	
-			   	$count = mysqli_num_rows($result);
-			   	
-			   if($count == 0){
-				echo "<div>Данные на этой странице отсутствуют</div><br>
-					<div>Добавьте новое задание, чтобы студенты могли начать обучение по предмету &#8220;$a&#8220;</div>
-					<br><div style='margin-right: 540px'><a style='text-align:left' href='?option= add_tasks'><button>Добавить задание</button></a></div>";
-				echo '<img class="illustration_big" src="file/undraw_learning_sketching_nd4f.png">';
-			   }
-			   else{
-			   	echo '<img class="illustration" src="file/undraw_File_bundle_re_6q1e.png">';
-			   	echo '<table class="table_center" border="1" cellspacing="0" cellpadding="12">
-			   	<tr style="background:#fff3ed">
-				<td><a style="color:#585858, text-decoration: none; "><b>Группа</b></a></td>
-				<td><a style="color:#585858, text-decoration: none; "><b>ФИО студента</b></a></td>
-				<td><a style="color:#585858, text-decoration: none; "><b>Дата сдачи</b></a></td>
-				<td><a style="color:#585858, text-decoration: none; "><b>Статус</b></a></td>
-				<td colspan=4><a style="color:#585858, text-decoration: none;"><b>Просмотр и оценка</b></a></td><tr>';
-			   
-				
-			   
-			   $row = array();
-			   for ($i = 0; $i < mysqli_num_rows($result); $i++){
-			   	$row = mysqli_fetch_array($result, MYSQLI_ASSOC); //---последовательно считываем ряды результата
-
-					printf("<tr><p style='font-size:20px;'>
-					       <td><a style='color:#585858, text-decoration: none''>%s</a></td>
-					       <td><a style='color:#585858, text-decoration: none''>%s %s %s</a></td>
-					       <td><a style='color:#585858, text-decoration: none''>%s</a></td>
-					       <td><a style='color:#585858, text-decoration: none''>%s</a></td>
-					       <td><a style='color:#585858' href='?option=view_stud_works&id_text=%s'>Посмотреть работы</a></td></p></tr>", $row['name_group'], $row['last_name'], $row['first_name'], $row['middle_name'], $row['date'], $row['status'], $row['id_work']);
-			   
-			   	}
-			   }
-			   
-			   echo "</div>";
-			}*/
 		}
 	}
 }

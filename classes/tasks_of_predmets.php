@@ -75,7 +75,7 @@ class tasks_of_predmets extends ACore_teacher{
 					       <td><a style='color:#585858, text-decoration: none''>%s</a></td>
 					       <td><a style='color:#585858, text-decoration: none''>%s</a></td>
 					       <td><a style='color:#585858, text-decoration: none''>%s</a></td>
-					       <td><a style='color:#585858' href='?option=view_stud_works&id_text=%s'>Посмотреть работы</a></td>
+					       <td><a style='color:#585858' href='?option=view_stud_works&id_text=%s'>Проверить</a></td>
 					       <td><a style='color:#585858' href='?option=view_task&id_text=%s'>Посмотреть</a></td>
 					       <td><a style='color:#585858' href='?option=edit_task&id_text=%s'>Изменить описание</a></td>
 					       <td><a style='color:#585858' href='?option=edit_task_file&id_text=%s'>Изменить файл</a></td>
