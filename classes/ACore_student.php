@@ -49,7 +49,8 @@ abstract class ACore_student{
 			   <li><a href="?option=news_stud">Новости</a></li>
 			   <li><a href="?option=notes_stud">Заметки</a></li>
 			   
-		           <li><a href="?option=predmets">Предметы</a></li>
+		           <li><a href="?option=predmets">Лекции</a></li>
+		           <li><a href="?option=tasks_stud">Задания</a></li>
 		           <li><a href="?option=messenger_stud">Мессенджер</a></li>
 		           <li><a href="?option=profil_stud">Профиль</a></li>';
 			

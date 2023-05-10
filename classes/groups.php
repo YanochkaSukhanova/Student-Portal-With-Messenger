@@ -33,7 +33,7 @@
 			$r = mysqli_fetch_array($result_a, MYSQLI_ASSOC);
 			echo "<br><div style=' background-color:#fff3ed; border: 2px solid #cc0605; border-radius: 25px;box-sizing: border-box; padding: 20px;'>
 				<p style='font-size:20px; color:#585858'>
-				<b><a style='color:#585858, text-decoration: none'>Студенты, незачисленные в группу</a><br></b>
+				<b><a style='color:#585858, text-decoration: none'>Студенты, не зачисленные в группу</a><br></b>
 				<a>Количество студентов: $kol</a><br>
 				<a style='color:#585858' href='?option=add_user_to_group'>Посмотреть или изменить</a></div>";
 			/*printf("<br><div style=' background-color:#fff3ed; border: 2px solid #cc0605; border-radius: 25px;box-sizing: border-box; padding: 20px;'>

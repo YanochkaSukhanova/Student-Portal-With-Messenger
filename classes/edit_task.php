@@ -66,7 +66,7 @@
 					<input type='hidden' name='id' style='width:420px;' value='$text[id]'>
 					</p>
 					
-					<p><b>Краткое описание (например, "Лабораторная работа №1" или "Контрольная работа №4"):</b><br>
+					<p><b>Тип работы (например, "Лабораторная работа №1" или "Контрольная работа №4"):</b><br>
 					<textarea id='editor2' type='text' name='discription' style='width:1000px; height:100px; font-size: 16px;  font-family: Geometria; src: url(font/Geometria.ttf); '>$text[discription]</textarea>
 					</p>
 

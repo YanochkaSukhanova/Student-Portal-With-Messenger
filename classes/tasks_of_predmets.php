@@ -24,7 +24,7 @@ class tasks_of_predmets extends ACore_teacher{
 			   	}
 			
 			  
-			   echo "<div id='main_a'>";
+			   echo "<br><div id='main_a'>";
 			   
 			   if($_SESSION['res']){
 			    	echo $_SESSION['res'];
@@ -58,12 +58,12 @@ class tasks_of_predmets extends ACore_teacher{
 			   	echo '<table class="table_center" border="1" cellspacing="0" cellpadding="12">
 			   	<tr style="background:#fff3ed">
 				<td><a style="color:#585858, text-decoration: none; "><b>Название</b></a></td>
-				<td><a style="color:#585858, text-decoration: none; "><b>Краткое описание</b></a></td>
+				<td><a style="color:#585858, text-decoration: none; "><b>Тип работы</b></a></td>
 				<td><a style="color:#585858, text-decoration: none; "><b>Дата создания</b></a></td>
 				<td><a style="color:#585858, text-decoration: none; "><b>Крайняя дата сдачи</b></a></td>
 				<td><a style="color:#585858, text-decoration: none; "><b>Работы студентов</b></a></td>
 				<td colspan=4><a style="color:#585858, text-decoration: none;"><b>Просмотр и изменение</b></a></td><tr>';
-			   }
+			   
 				
 			   
 			   $row = array();
@@ -81,6 +81,7 @@ class tasks_of_predmets extends ACore_teacher{
 					       <td><a style='color:#585858' href='?option=edit_task_file&id_text=%s'>Изменить файл</a></td>
 					       <td><a style='color:red' href='?option=delete_task&del_text=%s'>Удалить</a></td></p></tr>",    $row['title'], $row['discription'],  $row['date_start'], $row['date_end'], $row['id'], $row['id'], $row['id'], $row['id'], $row['id']);
 			   
+			   }
 			   }
 			   
 			   echo "</div>";

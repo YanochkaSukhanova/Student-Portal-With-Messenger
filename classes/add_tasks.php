@@ -29,7 +29,6 @@
 			$mysqli->query("SET @title = '$title', @img_src = '$img_src', @date_start = '$date_start', @date_end = '$date_end', @text = '$text', @discription = '$discription', @cat = '$cat'");
 			$result = $mysqli->query("CALL `addTasks`(@title, @img_src, @date_start, @date_end, @text, @discription, @cat)");
 			
-			$link = mysqli_connect(HOST, USER, PASSWORD, DB);
 			if(!$result){
 				exit(mysqli_error($mysqli));
 			}
@@ -61,7 +60,7 @@
 				<textarea id='editor1' type='text' name='title' style='width:1000px; height:100px; font-size: 16px;  font-family: Geometria; src: url(font/Geometria.ttf); '></textarea>
 				</p>
 				
-				<p><b>Краткое описание (например, "Лабораторная работа №1" или "Контрольная работа №4"):</b><br>
+				<p><b>Тип работы (например, "Лабораторная работа №1" или "Контрольная работа №4"):</b><br>
 				<textarea id='editor2' name='discription' style='width:1000px; height:100px; font-size: 16px;  font-family: Geometria; src: url(font/Geometria.ttf); '></textarea>
 				</p>
 
