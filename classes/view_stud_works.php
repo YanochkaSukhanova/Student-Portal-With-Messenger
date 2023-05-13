@@ -17,27 +17,6 @@
 			else{
 				$link = mysqli_connect(HOST, USER, PASSWORD, DB);
 				
-				
-				//g.name_group as name_group, g.id_group as id_group, u.first_name as first_name, u.last_name as last_name, u.middle_name as middle_name, s.date as date, s.status as status, s.id_task as id_task, s.id as id_work, u.student_group as student_group, t.id as id_task_1
-				
-				//ON s.id_task='$id_text' and g.id_group=u.student_group and s.id_task = t.id
-				
-				
-				/*$query = "SELECT s.id as id_work, s.status as status, s.id_user as id_user, s.id_task as id_task, s.date as date,
-						t.id as task_id,
-						u.first_name as first_name, u.last_name as last_name, u.middle_name as middle_name, u.rights as rights, u.student_group as student_group,
-						g.id_group as id_group, g.name_group as name_group
-							
-					FROM students_works AS s
-					JOIN users AS u
-					JOIN stud_groups AS g
-					JOIN tasks AS t
-					ON (s.id_task = t.id) and (u.student_group = g.id_group) and s.id_task='$id_text'
-					ORDER BY g.name_group, u.last_name DESC";*/
-				/*$query = "SELECT *
-				FROM users
-				WHERE rights = 'student'";*/
-				
 			$query_t = "SELECT *	
 			FROM tasks
 			WHERE id='$id_text'";
@@ -85,17 +64,6 @@
 			   $row = array();
 			   for ($i = 0; $i < mysqli_num_rows($result_u); $i++){
 			   $row = mysqli_fetch_array($result_u, MYSQLI_ASSOC); //---последовательно считываем ряды результата
-			   	//$id_stud = $row['id'];	
-				//echo $id_stud;
-				//and id_user='$id_stud'
-				/*$query_w = "SELECT *	
-					FROM students_works
-					WHERE id_task='$id_text'";
-					$result_w = mysqli_query($link, $query_w);
-					if(!$result_w){
-						exit(mysqli_error($link));
-					}
-					$row_w = mysqli_fetch_array($result_w, MYSQLI_ASSOC);*/
 				
 			   	$row1 = array();
 			        for ($i = 0; $i < mysqli_num_rows($result_w); $i++){

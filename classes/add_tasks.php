@@ -48,7 +48,9 @@
 			echo "<div>После заполнения всех полей нажмите &#8220;Сохранить&#8220;</div>";
 		
 			if($_SESSION['res']){
+				echo "<div style=' background-color:#fff; border: 2px solid #cc0605; border-radius: 25px;box-sizing: border-box; padding: 20px;'><b>";
 				echo $_SESSION['res'];
+				echo "</b></div>";
 				unset($_SESSION['res']);
 			}
 			

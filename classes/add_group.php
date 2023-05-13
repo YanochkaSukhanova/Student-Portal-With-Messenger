@@ -10,12 +10,13 @@
 			if(empty($title)){
 				exit("Не заполнены обязательные поля");
 			}
+			$mysqli = new mysqli(HOST, USER, PASSWORD, DB);
+			$mysqli->query("SET @name = '$title', @count = '$count'");
+			$result = $mysqli->query("CALL `addGroup`(@name, @count)");
 			
-			$query = "INSERT INTO `stud_groups`(`name_group`, `count_students`)  VALUES ('$title', '$count')";
 			$link = mysqli_connect(HOST, USER, PASSWORD, DB);
-			$result = mysqli_query($link, $query);
 			if(!$result){
-				exit(mysqli_error($link));
+				exit(mysqli_error($mysqli));
 			}
 			else {
 				$_SESSION['res'] = "Изменения сохранены";

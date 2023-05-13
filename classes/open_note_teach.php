@@ -27,25 +27,6 @@
 					<br><div style=' background-color:#fff; border: 2px solid #cc0605; border-radius: 25px;box-sizing: border-box; padding: 20px;'>
 					<p><div style='text-align:left; white-space: pre-wrap'>%s</div></p>
 					</div>", $row['name'], $row['text']);		
-				
-				/*if ($row['file_src'] != ""){
-					printf("<h2>%s</h2>  
-					
-						<br><div style=' background-color:#fff; border: 2px solid #cc0605; border-radius: 25px;box-sizing: border-box; padding: 20px;'>
-						<p><div style='text-align:left'>%s</div></p>
-						
-						<b><a style='color:#cc0605; text-align:left' href='%s'><p><img src='file/icons8-досье-20.png'>%s</p></a></b></div>
-						
-						</div>", $row['name'], $row['text'], $row['file_src'], basename($row['file_src']));
-				}
-				else{
-					printf("<h2>%s</h2>  
-				
-					<br><div style=' background-color:#fff; border: 2px solid #cc0605; border-radius: 25px;box-sizing: border-box; padding: 20px;'>
-					<p><div style='text-align:left; white-space: pre-wrap'>%s</div></p>
-					
-					</div>", $row['name'], $row['text']);
-				}*/
 					
 				echo '<br><img class="illustration" src="file/undraw_Notebook_re_id0r.png">';
 			}

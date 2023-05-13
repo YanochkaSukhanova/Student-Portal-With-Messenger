@@ -4,7 +4,7 @@
 	
 		protected function obr(){
 			
-			/*if(!empty($_FILES['file_src']['tmp_name'])){
+			if(!empty($_FILES['file_src']['tmp_name'])){
 				if(!move_uploaded_file($_FILES['file_src']['tmp_name'], '/var/www/yana.local/STUD_PORTAL/file/'.$_FILES['file_src']['name'])){
 					exit("Не удалось загрузить файл");
 				}
@@ -12,7 +12,7 @@
 			}
 			else{
 				$file_src = "";
-			}*/
+			}
 			
 			$name = $_POST['name'];
 			$text = $_POST['text'];
@@ -22,22 +22,21 @@
 				exit("Не заполнены обязательные поля");
 			}
 			
-			$mysqli = new mysqli(HOST, USER, PASSWORD, DB);
-			$mysqli->query("SET @name = '$name', @text = '$text', @id_user = '$id_user'");
-			$result = $mysqli->query("CALL `addNotes`(@name, @text, @id_user)");
+			foreach ($_POST['id_group'] as $id_group){
 			
-			/*$mysqli->query("SET @name = '$name', @file_src = '$file_src', @text = '$text', @id_user = '$id_user'");
-			$result = $mysqli->query("CALL `addNotes`(@name, @file_src, @text, @id_user)");*/
+				$mysqli = new mysqli(HOST, USER, PASSWORD, DB);
+				$mysqli->query("SET @name = '$name', @text = '$text', @file_src = '$file_src', @id_user = '$id_user', @id_group = '$id_group'");
+				$result = $mysqli->query("CALL `addNews`(@name, @text, @file_src, @id_user, @id_group)");
+				
+				$link = mysqli_connect(HOST, USER, PASSWORD, DB);
+				if(!$result){
+					exit(mysqli_error($mysqli));
+				}
+			}
+			$_SESSION['res'] = "Изменения сохранены";
+			header("Location:?option=add_note_teach");
+			exit;
 			
-			$link = mysqli_connect(HOST, USER, PASSWORD, DB);
-			if(!$result){
-				exit(mysqli_error($mysqli));
-			}
-			else {
-				$_SESSION['res'] = "Изменения сохранены";
-				header("Location:?option=add_note_teach");
-				exit;
-			}
 		
 		}
 		
@@ -76,11 +75,11 @@
 				</p>
 				
 				<p><b>Материалы (файл/архив):</b><br>
-				<input type='file' name='img_src'>
+				<input type='file' name='file_src'>
 				</p>
 				
 				<p><b>Группа:</b><br>
-				<select multiple name='id_group'>
+				<select multiple name='id_group[]'>
 			HEREDOC;
 
 			$student_group = array();
