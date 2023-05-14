@@ -1,12 +1,9 @@
 <?php
  
 class edit_group extends ACore_admin {
-
-public function get_content(){
-		
-		echo '<div id="main_a">';
-						
-						
+	// Вывод списка группы и возможность удалить пользователей из нее
+	public function get_content(){
+		echo '<div id="main_a">';			
 		if(!$_GET['id_text']){
 			echo 'Неправильные данные для вывода статьи';
 		}
@@ -16,7 +13,6 @@ public function get_content(){
 				echo 'Неправильные данные для вывода статьи';
 			}
 			else{
-				
 				$link = mysqli_connect(HOST, USER, PASSWORD, DB);
 				$query = "SELECT * 
 					  FROM `stud_groups`
@@ -25,7 +21,6 @@ public function get_content(){
 				if(!$result){
 					exit(mysqli_error($link));
 				}
-				
 				$query_a = "SELECT * 
 					  FROM users
 					  WHERE rights='student' and student_group=$id_text";
@@ -33,7 +28,6 @@ public function get_content(){
 				if(!$result_a){
 					exit(mysqli_error($link_a));
 				}
-				
 				$name_group = array();
 				for ($i = 0; $i < mysqli_num_rows($result); $i++){
 				   	$name_group = mysqli_fetch_array($result, MYSQLI_ASSOC);
@@ -41,7 +35,6 @@ public function get_content(){
 				$a = $name_group['name_group'];
 				$id = $name_group['id_group'];
 				echo "<h2 style='color: #cc0605'>Состав группы &#8220;$a&#8220;</h2>";
-				
 				$count = $name_group['count_students'];
 				if($count == 0){
 					echo "<div>В группе нет студентов</div><br>";
@@ -49,7 +42,6 @@ public function get_content(){
 					echo '<img class="illustration_big" src="file/undraw_People_search_re_5rre.png">';
 				}
 				else{
-		
 			echo '<img class="illustration" src="file/undraw_Selecting_team_re_ndkb.png">';
 			echo '<a style="margin-right: 1000px" href="?option=add_user_to_group"><button>Добавить нового пользователя в группу</button></a><br>';
 			echo '<table class="table_center" border="1" cellspacing="0" cellpadding="12">
@@ -61,26 +53,23 @@ public function get_content(){
 				<td><a style="color:#585858, text-decoration: none"><b>Отчество</b></a></td>
 				<td><a style="color:#585858, text-decoration: none"><b>e-mail</b></a></td>
 				<td colspan=2><a style="color:#585858, text-decoration:"><b>Редактировать</b></a></td></tr>';
-		$row = array();
-		for ($i = 0; $i < mysqli_num_rows($result_a); $i++){
-			$row = mysqli_fetch_array($result_a, MYSQLI_ASSOC); //---последовательно считываем ряды результата
-			printf("<tr><p style='font-size:20px;'>
-		       <td><a style='color:#585858, text-decoration: none''>%s</a></td>
-		       <td><a style='color:#585858, text-decoration: none''>%s</a></td>
-		       <td><a style='color:#585858, text-decoration: none''>%s</a></td>
-		       <td><a style='color:#585858, text-decoration: none''>%s</a></td>
-		       <td><a style='color:#585858, text-decoration: none''>%s</a></td>
-		       <td><a style='color:#585858, text-decoration: none''>%s</a></td>
-		       <td><b><a style='color:red' href='?option=delete_from_group&del_text=%s'
-		       '>Удалить из группы</a></b></td></tr>",   $row['id'], $row['login'], $row['last_name'], $row['first_name'],  $row['middle_name'], $row['email'], $row['id'],);
-		}
-		
-		echo "</table></div>";
-	
-		}
-		
+			$row = array();
+			for ($i = 0; $i < mysqli_num_rows($result_a); $i++){
+				$row = mysqli_fetch_array($result_a, MYSQLI_ASSOC); //---последовательно считываем ряды результата
+				printf("<tr><p style='font-size:20px;'>
+			       <td><a style='color:#585858, text-decoration: none''>%s</a></td>
+			       <td><a style='color:#585858, text-decoration: none''>%s</a></td>
+			       <td><a style='color:#585858, text-decoration: none''>%s</a></td>
+			       <td><a style='color:#585858, text-decoration: none''>%s</a></td>
+			       <td><a style='color:#585858, text-decoration: none''>%s</a></td>
+			       <td><a style='color:#585858, text-decoration: none''>%s</a></td>
+			       <td><b><a style='color:red' href='?option=delete_from_group&del_text=%s'
+			       '>Удалить из группы</a></b></td></tr>",   $row['id'], $row['login'], $row['last_name'], $row['first_name'],  $row['middle_name'], $row['email'], $row['id'],);
+			}
+			echo "</table></div>";
+			}
+			}
 		}
 	}
-}
 }
 ?>

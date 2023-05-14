@@ -2,8 +2,8 @@
 
 	class add_user extends ACore_admin {
 	
+		// Добавление пользователя в базу данных
 		protected function obr(){
-			
 			$login = $_POST['login'];
 			$pass = $_POST['pass'];
 			$rights = $_POST['rights'];
@@ -11,15 +11,10 @@
 			$first_name = $_POST['first_name'];
 			$middle_name = $_POST['middle_name'];
 			$email = $_POST['email'];
-
-			
 			if( empty($login) || empty($pass) || empty($rights) || empty($last_name) || empty($first_name) ){
 				exit("Не заполнены обязательные поля");
 			}
-			
-			
-			$pass = password_hash($pass, PASSWORD_DEFAULT);
-			
+			$pass = password_hash($pass, PASSWORD_DEFAULT);	
 			$mysqli = new mysqli(HOST, USER, PASSWORD, DB);
 			$mysqli->query("SET @p0='$login';");
 			$mysqli->query("SET @p1='$pass';");
@@ -37,19 +32,12 @@
 				header("Location:?option=add_user");
 				exit;
 			}
-		
 		}
 		
+		// Вывод формы для создания пользователя
 		public function get_content(){
 			echo "<div id='main'>";
 			echo "<h2 style='color:#cc0605'>Добавление нового пользователя</h2>";
-		
-			if($_SESSION['res']){
-				echo $_SESSION['res'];
-				unset($_SESSION['res']);
-			}
-			
-			
 			print <<<HEREDOC
 			
 			<form enctype="multipart/form-data" action="" method="POST">
@@ -77,7 +65,6 @@
 				<p><b>Пароль:</b><br>
 				<textarea style='width: 600px;' name='pass' pattern="[A-Za-z0-9]{3,50}"></textarea>
 				</p>
-				
 
 				<p><b>Права:</b><br>
 				<select name='rights'>
@@ -89,7 +76,6 @@
 			HEREDOC;
 			
 			echo "<p><input type='submit' name='button' value='Сохранить'></p></form></div>";
-			
 		}
 	}
 ?>

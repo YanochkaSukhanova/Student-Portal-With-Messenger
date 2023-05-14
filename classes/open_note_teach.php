@@ -1,11 +1,8 @@
 <?php
-
-	class open_note_teach extends ACore_teacher{
-		
-		public function get_content(){
-		
+class open_note_teach extends ACore_teacher{
+	// Просмотр содержания выбранной заметки
+	public function get_content(){
 		echo '<div id="main_a">';
-	
 		if(!$_GET['id_text']){
 			echo 'Неправильные данные для вывода заметки';
 		}
@@ -22,7 +19,6 @@
 					exit(mysqli_error($link));
 				}
 				$row = mysqli_fetch_array($result, MYSQLI_ASSOC);
-				
 				printf("<h2>%s</h2>  
 					<br><div style=' background-color:#fff; border: 2px solid #cc0605; border-radius: 25px;box-sizing: border-box; padding: 20px;'>
 					<p><div style='text-align:left; white-space: pre-wrap'>%s</div></p>
@@ -31,7 +27,6 @@
 				echo '<br><img class="illustration" src="file/undraw_Notebook_re_id0r.png">';
 			}
 		}
-	
 		echo '<br></div>';
 	}
 }

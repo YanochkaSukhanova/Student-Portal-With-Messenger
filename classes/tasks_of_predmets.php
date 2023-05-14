@@ -1,9 +1,7 @@
 <?php
- 
 class tasks_of_predmets extends ACore_teacher{
-	public function get_content(){
-						
-						
+	// Список заданий, относящихся к выбранному предмету
+	public function get_content(){				
 		if(!$_GET['id_cat']){
 			echo 'Неправильные данные для вывода страницы';
 		}
@@ -22,15 +20,7 @@ class tasks_of_predmets extends ACore_teacher{
 			   	if(!$result){
 			    		exit(mysqli_error($link));
 			   	}
-			
-			  
 			   echo "<br><div id='main_a'>";
-			   
-			   if($_SESSION['res']){
-			    	echo $_SESSION['res'];
-			    	unset($_SESSION['res']);
-			   }
-			   
 			   $query_a = "SELECT id_category, name_category 
 					  FROM category
 					  WHERE id_category='$id_cat' ";
@@ -45,7 +35,6 @@ class tasks_of_predmets extends ACore_teacher{
 			   }
 			   $a = $name_cat['name_category'];
 			   echo "<h2 style='color: #cc0605'>Редактировать задания по предмету &#8220;$a&#8220;</h2>";
-			   
 			   $count = mysqli_num_rows($result);
 			   if($count == 0){
 				echo "<div>Данные на этой странице отсутствуют</div><br>
@@ -63,9 +52,6 @@ class tasks_of_predmets extends ACore_teacher{
 				<td><a style="color:#585858, text-decoration: none; "><b>Крайняя дата сдачи</b></a></td>
 				<td><a style="color:#585858, text-decoration: none; "><b>Работы студентов</b></a></td>
 				<td colspan=4><a style="color:#585858, text-decoration: none;"><b>Просмотр и изменение</b></a></td><tr>';
-			   
-				
-			   
 			   $row = array();
 			   for ($i = 0; $i < mysqli_num_rows($result); $i++){
 			   	$row = mysqli_fetch_array($result, MYSQLI_ASSOC); //---последовательно считываем ряды результата
@@ -80,13 +66,11 @@ class tasks_of_predmets extends ACore_teacher{
 					       <td><a style='color:#585858' href='?option=edit_task&id_text=%s'>Изменить описание</a></td>
 					       <td><a style='color:#585858' href='?option=edit_task_file&id_text=%s'>Изменить файл</a></td>
 					       <td><a style='color:red' href='?option=delete_task&del_text=%s'>Удалить</a></td></p></tr>",    $row['title'], $row['discription'],  $row['date_start'], $row['date_end'], $row['id'], $row['id'], $row['id'], $row['id'], $row['id']);
-			   
 			   }
 			   }
-			   
 			   echo "</div>";
 			  }
  		}
- }
+ 	}
  }
 ?>

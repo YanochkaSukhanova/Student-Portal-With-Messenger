@@ -1,11 +1,10 @@
 <?php
 
 class delete_from_group extends ACore_admin{
-
+	// Удаление пользователя из группы и изменение количества студентов в группе
 	public function obr(){
 		if ($_GET['del_text']){
 			$user_id = (int)$_GET['del_text'];
-			
 			$link = mysqli_connect(HOST, USER, PASSWORD, DB);
 			$query = "SELECT student_group
 				  FROM `users`
@@ -17,7 +16,6 @@ class delete_from_group extends ACore_admin{
 			$r1 = array();
 			$r1 = mysqli_fetch_array($id_group, MYSQLI_ASSOC);
 			$id_gr = $r1['student_group']; 
-			
 			$link = mysqli_connect(HOST, USER, PASSWORD, DB);
 			$query = "SELECT * 
 				  FROM `stud_groups`
@@ -26,7 +24,6 @@ class delete_from_group extends ACore_admin{
 			if(!$result){
 				exit(mysqli_error($link));
 			}
-			
 			$query_a = "SELECT id
 				  FROM `users`
 				  WHERE student_group='$id_gr'";
@@ -34,9 +31,7 @@ class delete_from_group extends ACore_admin{
 			if(!$result_a){
 				exit(mysqli_error($link));
 			}
-			
 			$id_group_null = (int)0;
-			
 			$mysqli = new mysqli(HOST, USER, PASSWORD, DB);
 			$mysqli->query("SET @user_id = '$user_id', @id_group = '$id_group_null'");
 			$result = $mysqli->query("CALL `addUserToGroup`(@user_id, @id_group)");
@@ -45,8 +40,6 @@ class delete_from_group extends ACore_admin{
 				header("Location:?option=groups");
 				exit(); 
 			}
-
-			
 			$link = mysqli_connect(HOST, USER, PASSWORD, DB);
 			$query = "SELECT count(*) 
 				  FROM `users` 
@@ -55,14 +48,11 @@ class delete_from_group extends ACore_admin{
 			if(!$result){
 				exit(mysqli_error($link));
 			}
-			
 			$r = mysqli_fetch_array($result, MYSQLI_ASSOC); 	
 			$count_students = (int)$r - 1;
-			
 			$mysqli = new mysqli(HOST, USER, PASSWORD, DB);
 			$mysqli->query("SET @id_group = '$id_gr', @count_students = '$count_students'");
 			$result = $mysqli->query("CALL `editCountStudents`(@id_group, @count_students)");		
-			
 	  		if(!$result){
 			exit(mysqli_error($mysqli));
 			}
@@ -71,14 +61,13 @@ class delete_from_group extends ACore_admin{
 				header("Location:?option=groups");
 				exit;
 			}
-			
 		}
 		else {
 			exit("Неверные данные для отображения страницы");
 		}
 	}	
 	
+	// Нет отображения контента
 	public function get_content(){}
 }
-
 ?>

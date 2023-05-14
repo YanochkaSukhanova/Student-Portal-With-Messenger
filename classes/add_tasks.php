@@ -2,8 +2,8 @@
 
 	class add_tasks extends ACore_teacher {
 	
+		// Добавление задания в базу данных
 		protected function obr(){
-			
 			if(!empty($_FILES['img_src']['tmp_name'])){
 				if(!move_uploaded_file($_FILES['img_src']['tmp_name'], '/var/www/yana.local/STUD_PORTAL/file/'.$_FILES['img_src']['name'])){
 					exit("Не удалось загрузить файл");
@@ -13,22 +13,18 @@
 			else{
 				exit("Необходимо загрузить файл или архив");
 			}
-			
 			$title = $_POST['title'];
 			$date_start = date("y-m-d", time());
 			$date_end = $_POST['date_end']; 
 			$discription = $_POST['discription']; 
 			$text = $_POST['text'];
 			$cat = $_POST['cat'];
-			
 			if( empty($title) || empty($text) || empty($discription) ){
 				exit("Не заполнены обязательные поля");
 			}
-			
 			$mysqli = new mysqli(HOST, USER, PASSWORD, DB);
 			$mysqli->query("SET @title = '$title', @img_src = '$img_src', @date_start = '$date_start', @date_end = '$date_end', @text = '$text', @discription = '$discription', @cat = '$cat'");
 			$result = $mysqli->query("CALL `addTasks`(@title, @img_src, @date_start, @date_end, @text, @discription, @cat)");
-			
 			if(!$result){
 				exit(mysqli_error($mysqli));
 			}
@@ -36,26 +32,16 @@
 				$_SESSION['res'] = "Изменения сохранены";
 				header("Location:?option=add_tasks");
 				exit;
-			}
-		
+			}	
 		}
 		
+		// Вывод формы для создания задания
 		public function get_content(){
 			echo "<div id='main'>";
-			
 			echo "<h2>Добавить новое задание</h2>";
 			echo '<img class="illustration" src="file/undraw_Certificate_re_yadi.png"><br>';
 			echo "<div>После заполнения всех полей нажмите &#8220;Сохранить&#8220;</div>";
-		
-			if($_SESSION['res']){
-				echo "<div style=' background-color:#fff; border: 2px solid #cc0605; border-radius: 25px;box-sizing: border-box; padding: 20px;'><b>";
-				echo $_SESSION['res'];
-				echo "</b></div>";
-				unset($_SESSION['res']);
-			}
-			
 			$cat = $this->get_categories();
-			
 			print <<<HEREDOC
 			<form enctype="multipart/form-data" action="" method="POST">
 				<p><b>Название задания:</b><br>
@@ -87,7 +73,6 @@
 			echo "</select><p><input type='submit' name='button' value='Сохранить'></p></form>
 			
 			</div>";
-			
 		}
 	}
 ?>

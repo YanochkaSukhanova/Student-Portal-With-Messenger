@@ -1,11 +1,9 @@
 <?php
- 
 class category extends ACore_student{
+
+	// Отображение списка лекций, относящихся к конкретному предмету
 	public function get_content(){
-		
-		echo '<div id="main_a">';
-						
-						
+		echo '<div id="main_a">';			
 		if(!$_GET['id_cat']){
 			echo 'Неправильные данные для вывода статьи';
 		}
@@ -24,7 +22,6 @@ class category extends ACore_student{
 				if(!$result){
 					exit(mysqli_error($link));
 				}
-				
 				$query_a = "SELECT id_category, name_category 
 					  FROM category
 					  WHERE id_category='$id_cat' ";
@@ -39,9 +36,7 @@ class category extends ACore_student{
 				}
 				$a = $name_cat['name_category'];
 				echo "<h2 style='color: #cc0605'>Лекции по предмету &#8220;$a&#8220;</h2>";
-				
 				$row = array();
-				
 				$count = mysqli_num_rows($result);
 				if($count == 0){
 					echo "<div>Данные на этой странице отсутствуют</div>
@@ -51,7 +46,6 @@ class category extends ACore_student{
 				else{
 					echo '<img class="illustration_big" src="file/undraw_Designer_re_5v95.png">';
 				}
-				
 				for ($i = 0; $i < mysqli_num_rows($result); $i++){
 					$row = mysqli_fetch_array($result, MYSQLI_ASSOC); //---последовательно считываем ряды результата
 					
@@ -60,13 +54,9 @@ class category extends ACore_student{
 					<p><a style='font-size: 20px; color: #585858; text-decoration: none' href='?option=view&id_text=%s'>%s</a></p>
 					</div><br>", $row['id'], $row['title'], $row['id'], $row['discription']);
 				}
-				
-				}
 			}
+		}
 		echo '</div>';
-	
-	}//<img style='margin-right:5px' height='200px' align='left' src='%s'><div style='margin-left: 400px;'><img class='illustration' src='%s'>
+	}
 }
 ?>
-
-

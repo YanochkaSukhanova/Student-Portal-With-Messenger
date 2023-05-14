@@ -2,9 +2,8 @@
  
 class add_user_to_group extends ACore_admin {
 
-
+	// Добавление пользователя "студент" в конктерную группу и изменение количества людей в группе 
 	protected function obr(){
-			
 		$id_group = $_POST['id_group'];
 		$user_id = $_POST['user_id'];
 		
@@ -34,15 +33,13 @@ class add_user_to_group extends ACore_admin {
 			$_SESSION['res'] = "Изменения сохранены, res = $count_students";
 			header("Location:?option=add_user_to_group");
 			exit;
-		}
-			
+		}	
 	}
 	
-	public function get_content(){	
-				
+	// Форма для добавления пользоватлей в студенческие группы
+	public function get_content(){		
 		echo '<div id="main_a">';	
-		echo "<h2 style='color: #cc0605'>Добавить студента в группу</h2>";
-				
+		echo "<h2 style='color: #cc0605'>Добавить студента в группу</h2>";	
 		$link_a = mysqli_connect(HOST, USER, PASSWORD, DB);
 		$query_a = "SELECT * 
 			  FROM users
@@ -52,11 +49,8 @@ class add_user_to_group extends ACore_admin {
 			exit(mysqli_error($link_a));
 		}
 		$K = mysqli_num_rows($result_a);
-		
 		if ($K != 0){ 		
-				
 			echo '<img class="illustration" src="file/undraw_Selecting_team_re_ndkb.png">';
-		
 			echo '<table class="table_center" border="1" cellspacing="0" cellpadding="12">
 				<tr style= "background-color:#fff3ed;">
 				<td><a style="color:#585858, text-decoration: none"><b>ID</b></a></td>
@@ -66,12 +60,10 @@ class add_user_to_group extends ACore_admin {
 				<td><a style="color:#585858, text-decoration: none"><b>Отчество</b></a></td>
 				<td><a style="color:#585858, text-decoration: none"><b>e-mail</b></a></td>
 				<td><a style="color:#585858, text-decoration: none"><b>Группа</b></a></td></tr>';
-			
-			$k = 1;
+			$K = 1;
 			$row = array();
 			for ($i = 0; $i < mysqli_num_rows($result_a); $i++){
 				$row = mysqli_fetch_array($result_a, MYSQLI_ASSOC); //---последовательно считываем ряды результата
-				
 				printf("<tr><p style='font-size:20px;'>
 					       <td><a style='color:#585858, text-decoration: none''>%s</a></td>
 					       <td><a style='color:#585858, text-decoration: none''>%s</a></td>
@@ -79,10 +71,8 @@ class add_user_to_group extends ACore_admin {
 					       <td><a style='color:#585858, text-decoration: none''>%s</a></td>
 					       <td><a style='color:#585858, text-decoration: none''>%s</a></td>
 					       <td><a style='color:#585858, text-decoration: none''>%s</a></td>",   $row['id'], $row['login'], $row['last_name'], $row['first_name'],  $row['middle_name'], $row['email']);
-					     
 		    	        echo "<td><a style='color:#585858, text-decoration: none''>";
 				$id_stud = $row['id'];
-				
 				$link_b = mysqli_connect(HOST, USER, PASSWORD, DB);
 				$query_b = "SELECT * 
 					  FROM `stud_groups`";
@@ -91,7 +81,6 @@ class add_user_to_group extends ACore_admin {
 					exit(mysqli_error($link_b));
 				}
 				$group_b = array();
-					
 				print <<<HEREDOC
 				<form enctype="multipart/form-data" action="" method="POST">
 					<select name='id_group'>
@@ -102,22 +91,15 @@ class add_user_to_group extends ACore_admin {
 				   	$student_group = mysqli_fetch_array($result_b, MYSQLI_ASSOC);
 				   	echo "<option value='".$student_group['id_group']."'>".$student_group['name_group']."</option>";
 				}
-				echo "</select>";
-				
-				echo "<p><input type='hidden' name='user_id' value='$id_stud'></p>";
+				echo "</select><p><input type='hidden' name='user_id' value='$id_stud'></p>";
 				echo "<p><input type='submit' name='button' value='Добавить в группу'></p></form>";
-			       
-			       echo "</a></td></tr>";
-				
+			       echo "</a></td></tr>";	
 			}
-			
 			echo "</table></div>";	
-			
 		}
 		else{
 			echo '<img class="illustration" src="file/undraw_Selecting_team_re_ndkb.png">';
-			echo '<br>
-				<p>В данный момент нет студентов, которым не назначена группа</p></div>';	
+			echo '<br><p>В данный момент нет студентов, которым не назначена группа</p></div>';	
 		}
 	}
 }

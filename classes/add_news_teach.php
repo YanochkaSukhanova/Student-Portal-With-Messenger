@@ -2,8 +2,9 @@
 
 	class add_news_teach extends ACore_teacher {
 	
+		// Добавление новости в базу данных
 		protected function obr(){
-			
+			// Пооверка загрузки файла
 			if(!empty($_FILES['file_src']['tmp_name'])){
 				if(!move_uploaded_file($_FILES['file_src']['tmp_name'], '/var/www/yana.local/STUD_PORTAL/file/'.$_FILES['file_src']['name'])){
 					exit("Не удалось загрузить файл");
@@ -36,22 +37,15 @@
 			$_SESSION['res'] = "Изменения сохранены";
 			header("Location:?option=add_note_teach");
 			exit;
-			
-		
 		}
 		
+		// Вывод формы для создания новости
 		public function get_content(){
 			echo "<div id='main_a'>";
 			
 			echo "<h2>Добавить новую новость</h2>";
 			echo '<img class="illustration" src="file/undraw_Certificate_re_yadi.png"><br>';
 			echo "<div>После заполнения всех полей нажмите &#8220;Сохранить&#8220;</div>";
-		
-			if($_SESSION['res']){
-				echo $_SESSION['res'];
-				unset($_SESSION['res']);
-			}
-			
 			$my_id = $_SESSION['user']['id'];
 			
 			$link_b = mysqli_connect(HOST, USER, PASSWORD, DB);
@@ -62,7 +56,6 @@
 				exit(mysqli_error($link_b));
 			}
 			$group_b = array();
-			
 			
 			print <<<HEREDOC
 			<form enctype="multipart/form-data" action="" method="POST">

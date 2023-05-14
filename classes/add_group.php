@@ -2,19 +2,16 @@
 
 	class add_group extends ACore_admin {
 	
+		// Добавление группы в базу данных
 		protected function obr(){
-			
 			$title = $_POST['title'];
 			$count = 0;
-			
 			if(empty($title)){
 				exit("Не заполнены обязательные поля");
 			}
 			$mysqli = new mysqli(HOST, USER, PASSWORD, DB);
 			$mysqli->query("SET @name = '$title', @count = '$count'");
 			$result = $mysqli->query("CALL `addGroup`(@name, @count)");
-			
-			$link = mysqli_connect(HOST, USER, PASSWORD, DB);
 			if(!$result){
 				exit(mysqli_error($mysqli));
 			}
@@ -23,17 +20,11 @@
 				header("Location:?option=groups");
 				exit;
 			}
-		
 		}
 		
+		// Вывод формы для создания новой группы
 		public function get_content(){
 			echo "<div id='main'>";
-		
-			if($_SESSION['res']){
-				echo $_SESSION['res'];
-				unset($_SESSION['res']);
-			}
-			
 			print <<<HEREDOC
 			<form action="" method="POST">
 				<p>Название новой группы:<br>
@@ -42,7 +33,6 @@
 				
 				<p><input type='submit' name='button' value='Добавить'></p></form></div>
 			HEREDOC;
-			
 		}
 	}
 ?>

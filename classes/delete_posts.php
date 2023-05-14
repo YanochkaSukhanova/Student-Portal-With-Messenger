@@ -1,11 +1,9 @@
 <?php
-
 class delete_posts extends ACore_teacher{
-
+	// Удаление лекции из базы данных
 	public function obr(){
 		if ($_GET['del_text']){
 			$id_text = (int)$_GET['del_text'];
-			
 			$mysqli = new mysqli(HOST, USER, PASSWORD, DB);
 			$mysqli->query("SET @p0='$id_text';");
 			$result = $mysqli->query("CALL `deletePosts`(@p0)");
@@ -17,14 +15,12 @@ class delete_posts extends ACore_teacher{
 			else{
 				exit("Ошибка удаления статьи");
 			}	  
-			
 		}
 		else {
 			exit("Неверные данные для отображения страницы");
 		}
 	}	
-	
+	// Нет отображения контента	
 	public function get_content(){}
 }
-
 ?>

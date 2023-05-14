@@ -1,9 +1,8 @@
 <?php
  
 class lections_of_predmets extends ACore_teacher{
+	// Вывод лекций, относящихся к выбранному предмету, и кнопки, переводящие к их изменению и удалению
 	public function get_content(){
-						
-						
 		if(!$_GET['id_cat']){
 			echo 'Неправильные данные для вывода статьи';
 		}
@@ -22,15 +21,7 @@ class lections_of_predmets extends ACore_teacher{
 			   	if(!$result){
 			    		exit(mysqli_error($link));
 			   	}
-			
-			  
 			   echo "<div id='main_a'>";
-			   
-			   if($_SESSION['res']){
-			    	echo $_SESSION['res'];
-			    	unset($_SESSION['res']);
-			   }
-			   
 			   $query_a = "SELECT id_category, name_category 
 					  FROM category
 					  WHERE id_category='$id_cat' ";
@@ -45,7 +36,6 @@ class lections_of_predmets extends ACore_teacher{
 			   }
 			   $a = $name_cat['name_category'];
 			   echo "<h2 style='color: #cc0605'>Редактировать лекции по предмету &#8220;$a&#8220;</h2>";
-			   
 			   $count = mysqli_num_rows($result);
 			   if($count == 0){
 				echo "<div>Данные на этой странице отсутствуют</div><br>
@@ -62,8 +52,6 @@ class lections_of_predmets extends ACore_teacher{
 				<td><a style="color:#585858, text-decoration: none; "><b>Дата создания</b></a></td>
 				<td colspan=4><a style="color:#585858, text-decoration: none;"><b>Просмотр и изменение</b></a></td><tr>';
 			   }
-				
-			   
 			   $row = array();
 			   for ($i = 0; $i < mysqli_num_rows($result); $i++){
 			   	$row = mysqli_fetch_array($result, MYSQLI_ASSOC); //---последовательно считываем ряды результата
@@ -78,10 +66,9 @@ class lections_of_predmets extends ACore_teacher{
 					       <td><a style='color:red' href='?option=delete_posts&del_text=%s'>Удалить</a></td></p></tr>",    $row['title'], $row['discription'],  $row['date'], $row['id'], $row['id'], $row['id'], $row['id']);
 			   
 			   }
-			   
 			   echo "</div>";
-			  }
- 		}
- }
- }
+			   }
+		}
+	}
+}
 ?>

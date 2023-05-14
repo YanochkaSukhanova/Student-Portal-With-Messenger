@@ -1,12 +1,8 @@
 <?php
- 
 class users_rights extends ACore_admin {
-
-public function get_content(){
-		
-		echo '<div id="main_a">';
-						
-						
+	// Список пользователей с определенными правами 
+	public function get_content(){	
+		echo '<div id="main_a">';	
 		if(!$_GET['rights_of_users']){
 			echo 'Неправильные данные для вывода статьи';
 		}
@@ -16,7 +12,6 @@ public function get_content(){
 				echo 'Неправильные данные для вывода статьи';
 			}
 			else{
-				
 				if($rights_of_users == 'student'){
 					$a = 'Студенты';
 				}
@@ -32,7 +27,6 @@ public function get_content(){
 				else{
 					$a = 'Ошибка: неизвестный тип пользователей';
 				}
-				
 				$link = mysqli_connect(HOST, USER, PASSWORD, DB);
 				$query = "SELECT * 
 					  FROM users
@@ -41,18 +35,14 @@ public function get_content(){
 				if(!$result){
 					exit(mysqli_error($link));
 				}
-				
-				echo "<h2 style='color: #cc0605'> $a</h2>";
-				
+				echo "<h2 style='color: #cc0605'> $a</h2>";				
 				$row = array();
-				
 				$count = mysqli_num_rows($result);
 		if($count == 0){
 			echo "<div>Данные на этой странице отсутствуют</div><br>";
 			echo '<a style="margin-right: 1000px" href="?option=add_user"><button>Добавить нового пользователя</button></a><br>';		
 			echo '<img class="illustration_big" src="file/undraw_Engineering_team_re_fvat.png">';
 		}
-		
 			echo '<img class="illustration" src="file/undraw_Engineering_team_re_fvat.png">';
 			echo '<a style="margin-right: 1000px" href="?option=add_user"><button>Добавить нового пользователя</button></a><br>';		
 			echo '<table class="table_center" border="1" cellspacing="0" cellpadding="12">
@@ -76,12 +66,10 @@ public function get_content(){
 		       <td><a style='color:#585858, text-decoration: none''>%s</a></td>
 		       <td><a style='color:#585858' href='?option=edit_user&id_text=%s'>Изменить</a></td>
 		       <td><a style='color:red' href='?option=delete_user&del_text=%s'>Удалить</a></td></p></tr>",   $row['id'], $row['login'], $row['last_name'], $row['first_name'],  $row['middle_name'], $row['email'], $row['id'], $row['id']);
-		}
-		
+		}		
 		echo "</table></div>";
-	
+			}
 		}
 	}
-}
 }
 ?>

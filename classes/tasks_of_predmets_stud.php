@@ -1,9 +1,7 @@
 <?php
- 
 class tasks_of_predmets_stud extends ACore_student{
-	public function get_content(){
-						
-						
+	// Список заданий, относящихся к выбранному предмету
+	public function get_content(){					
 		if(!$_GET['id_cat']){
 			echo 'Неправильные данные для вывода страницы';
 		}
@@ -22,15 +20,7 @@ class tasks_of_predmets_stud extends ACore_student{
 			   	if(!$result){
 			    		exit(mysqli_error($link));
 			   	}
-			
-			  
 			   echo "<br><div id='main_a'>";
-			   
-			   if($_SESSION['res']){
-			    	echo $_SESSION['res'];
-			    	unset($_SESSION['res']);
-			   }
-			   
 			   $query_a = "SELECT id_category, name_category 
 					  FROM category
 					  WHERE id_category='$id_cat' ";
@@ -44,8 +34,7 @@ class tasks_of_predmets_stud extends ACore_student{
 			   	$name_cat = mysqli_fetch_array($result_a, MYSQLI_ASSOC);
 			   }
 			   $a = $name_cat['name_category'];
-			   echo "<h2 style='color: #cc0605'>Задания по предмету &#8220;$a&#8220;</h2>";
-			   
+			   echo "<h2 style='color: #cc0605'>Задания по предмету &#8220;$a&#8220;</h2>"; 
 			   $count = mysqli_num_rows($result);
 			   if($count == 0){
 				echo "<div>Данные на этой странице отсутствуют</div><br>
@@ -62,9 +51,7 @@ class tasks_of_predmets_stud extends ACore_student{
 				<td><a style="color:#585858, text-decoration: none; "><b>Статус</b></a></td>
 				<td colspan=4><a style="color:#585858, text-decoration: none;"><b>Просмотр и сдача</b></a></td><tr>';
 			   }
-			
 			   $my_id = $_SESSION['user']['id']; 
-			   
 			   $row = array();
 			   for ($i = 0; $i < mysqli_num_rows($result); $i++){
 			   	$row = mysqli_fetch_array($result, MYSQLI_ASSOC); //---последовательно считываем ряды результата
@@ -74,8 +61,7 @@ class tasks_of_predmets_stud extends ACore_student{
 					if(!$result1){
 						exit(mysqli_error($link));
 					}
-					$row1 = mysqli_fetch_array($result1, MYSQLI_ASSOC);
-						
+					$row1 = mysqli_fetch_array($result1, MYSQLI_ASSOC);		
 					$count = mysqli_num_rows($result1);
 					if($count == 0){
 						$status = "Не отправлено";
@@ -83,8 +69,6 @@ class tasks_of_predmets_stud extends ACore_student{
 					else{
 						$status = $row1['status'];
 					}
-
-
 					if ($status == "Не отправлено"){
 						printf("<tr><p style='font-size:20px;'>
 					       <td><a style='color:#585858, text-decoration: none''>%s</a></td>
@@ -121,12 +105,10 @@ class tasks_of_predmets_stud extends ACore_student{
 					       <td><a style='color:#585858' href='?option=view_task_stud&id_text=%s'>Открыть задание</a></td>
 </p></tr>",    $row['title'], $row['discription'],  $row['date_end'], $status, $row['id'], $row['id']);
 					}
-			   
-			   }
-			   
+			   }		   
 			   echo "</div>"; 
 			  }
  		}
- }
+ 	}
  }
 ?>

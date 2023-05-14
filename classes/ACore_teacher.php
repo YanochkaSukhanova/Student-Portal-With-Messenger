@@ -1,21 +1,7 @@
 <?php
 abstract class ACore_teacher{
 	
-	protected $db;
-	
-	public function _construct (){
-	
-		$this->$db = mysqli_connect(HOST, USER, PASSWORD);
-		if(!$this->db){
-			exit("Ошибка соединения с базой данных".mysqli_error());
-		}
-		if(!mysqli_select_db(DB, $tris->db)){
-			exit("Нет такой базы данных".mysqli_error());
-		}
-		
-		mysqli_query("SET NAMES UTF8");
-	}
-	
+	// Вывод шапки 
 	protected function get_header(){
 		echo '<!DOCTYPE html>
 
@@ -31,7 +17,8 @@ abstract class ACore_teacher{
 			<BODY>
 			    	<h1>Студенческий портал для преподавателей</h1>';
 	}
-
+	
+	// Вывод меню
 	protected function get_category(){
 
 		echo '<div id="menu"><ul>';
@@ -47,7 +34,7 @@ abstract class ACore_teacher{
 			</ul></div>';
 	}	
 	
-	
+	// Вывод подвала
 	protected function get_footer(){
 		echo '<div id="footer">    
 			  &copy; Суханова Яна - А-08-19
@@ -58,6 +45,27 @@ abstract class ACore_teacher{
 			</HTML>';
 	}	
 	
+	// Вывод ошибки (нет доступа к странице)
+	protected function get_error(){
+		echo '<div> Нет доступа к данной странице</div><br>
+			<a style="text-align: center" href="/STUD_PORTAL/login.php"><button>Выйти</button></a>
+			<img class="illustration_big" src="file/undraw_Page_not_found_re_e9o6.png">
+			  
+			</BODY>
+
+			</HTML>';
+	}
+	
+	// Вывод ошибки (не назначены права)
+	protected function get_null(){
+		echo '<div> Администратор еще не назначил Вам права студента или преподавателя для доступа к сайту</div><br>
+			<div> Попробуйте зайти на портал через какое-то время</div><br>
+			<a style="text-align: center" href="/STUD_PORTAL/login.php"><button>Выйти</button></a><br>
+			<img class="illustration_big" src="file/undraw_Time_management_re_tk5w.png">';
+	}	
+	
+	
+	// Проверка прав, вызов функций для отображения контента шапки, меню, подвала, основной(изменяемой) части или ошибок
 	public function get_body() {
 	
 		if($_SESSION['user']['rights'] === 'teacher'){
@@ -67,6 +75,12 @@ abstract class ACore_teacher{
 			
 			$this->get_header();
 			$this->get_category();
+			
+			if ($_SESSION['res']){
+				echo "<br><div style=' width: 1200px; margin-left: 300px; background-color:#fff; border: 2px solid #cc0605; border-radius: 25px;box-sizing: border-box; padding: 20px;'><b>$_SESSION[res]</b></div>";
+				unset($_SESSION['res']);
+			}
+			
 			$this->get_content();
 			$this->get_footer();
 		}
@@ -82,25 +96,10 @@ abstract class ACore_teacher{
 		}
 	}
 	
-	protected function get_error(){
-		echo '<div> Нет доступа к данной странице</div><br>
-			<a style="text-align: center" href="/STUD_PORTAL/login.php"><button>Выйти</button></a>
-			<img class="illustration_big" src="file/undraw_Page_not_found_re_e9o6.png">
-			  
-			</BODY>
-
-			</HTML>';
-	}
-	
-	protected function get_null(){
-		echo '<div> Администратор еще не назначил Вам права студента или преподавателя для доступа к сайту</div><br>
-			<div> Попробуйте зайти на портал через какое-то время</div><br>
-			<a style="text-align: center" href="/STUD_PORTAL/login.php"><button>Выйти</button></a><br>
-			<img class="illustration_big" src="file/undraw_Time_management_re_tk5w.png">';
-	}	
-	
+	// Функция, описанная в классах-наследниках, чтобы выводить основную часть контента (разная для каждой функции)
 	abstract function get_content();
 	
+	// Возврат информации о предметах
 	protected function get_categories(){
 		$query = "SELECT id_category, name_category FROM category";
 		$link = mysqli_connect(HOST, USER, PASSWORD, DB);
@@ -117,6 +116,7 @@ abstract class ACore_teacher{
 		return $row;
 	}
 	
+	// Возврат информации о лекции с конкретным id
 	protected function get_text_posts($id){
 		$query = "SELECT id, title, discription, text, cat, file_src
 		 	  FROM posts
@@ -133,6 +133,7 @@ abstract class ACore_teacher{
 		return $row;
 	}
 	
+	// Возврат информации о задании с конкретным id
 	protected function get_text_task($id){
 		$query = "SELECT id, title, discription, text, cat, file_src, date_start, date_end
 		 	  FROM tasks
@@ -149,6 +150,7 @@ abstract class ACore_teacher{
 		return $row;
 	}
 	
+	// Возврат информации о предмете с конкретным id
 	protected function get_name_category($id){
 		$query = "SELECT id_category, name_category
 		 	  FROM category

@@ -1,7 +1,6 @@
 <?php
-
 class delete_note_teach extends ACore_teacher{
-
+	// Удаление заметки, созданной преподавателем
 	public function obr(){
 		if ($_GET['del_text']){
 			$id_text = (int)$_GET['del_text'];
@@ -16,14 +15,12 @@ class delete_note_teach extends ACore_teacher{
 			else{
 				exit("Ошибка удаления");
 			}	  
-			
 		}
 		else {
 			exit("Неверные данные для отображения страницы");
 		}
 	}	
-	
+	// Нет отображения контента	
 	public function get_content(){}
 }
-
 ?>

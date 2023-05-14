@@ -1,7 +1,6 @@
 <?php
-
 class delete_news extends ACore_teacher{
-
+	// Удаление новости из базы данных
 	public function obr(){
 		if ($_GET['del_text']){
 			$id_text = (int)$_GET['del_text'];
@@ -15,15 +14,13 @@ class delete_news extends ACore_teacher{
 			}
 			else{
 				exit(mysqli_error($mysqli));
-			}	  
-			
+			}	  			
 		}
 		else {
 			exit("Неверные данные для отображения страницы");
 		}
 	}	
-	
+	// Нет отображения контента	
 	public function get_content(){}
 }
-
 ?>
